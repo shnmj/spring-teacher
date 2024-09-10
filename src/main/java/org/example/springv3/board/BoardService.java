@@ -18,11 +18,17 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardQueryRepository boardQueryRepository;
 
-    public List<Board> 게시글목록보기() {
-        //Pageable pg = PageRequest.of(0, 3, Sort.Direction.DESC, "id");
-        Sort sort = Sort.by(Sort.Direction.DESC, "id");
-        List<Board> boardList = boardRepository.findAll(sort);
-        return boardList;
+    public List<Board> 게시글목록보기(String title) {
+        if(title == null) {
+            //Pageable pg = PageRequest.of(0, 3, Sort.Direction.DESC, "id");
+            Sort sort = Sort.by(Sort.Direction.DESC, "id");
+            List<Board> boardList = boardRepository.findAll(sort);
+            return boardList; // 전체 결과
+        }else{
+            List<Board> boardList = boardRepository.mfindAll(title);
+            return boardList; // 검색된 결과
+        }
+
     }
 
 
